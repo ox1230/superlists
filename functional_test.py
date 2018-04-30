@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 import unittest  
 
 class NewVisitorTest(unittest.TestCase):
@@ -17,19 +18,33 @@ class NewVisitorTest(unittest.TestCase):
 
         # 타이틀과 헤더가 'To-Do'를 표시
         self.assertIn('To-Do' ,self.browser.title)  # 다양한 assert
-        self.fail('Finish the test!')  # 강제적 테스트 실패 발생
 
 
         #작업 추가
+        inputBox = self.browser.find_element_by_id('id_new_item')
+        self.assertEqual(
+            inputBox.get_attribute('placeHolder'), 
+            '작업아이템 입력'
+        )
 
         # '공작깃털 사기'라고 텍스트 상자에 입력
+        inputBox.send_keys('공작깃털 사기')
+
 
         # 엔터키를 치면 페이지 갱신, 작업 목록에 "1: 공작깃털 사기"아이템이 추가 
+        inputBox.send_keys(Keys.ENTER)
+
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertTrue(
+            any(row.text == '1: 공작깃털 사기' for row in rows),
+        )
 
         # 추가 아이템을 입력할 수 있는 여분의 텍스트 상자 존재
         # 다시 '공작 깃털을 이용해 그물 만들기"라고 입력
 
         # 페이지 갱신, 두개의 아이템이 목록에 표시
+        self.fail('Finish the test!')  # 강제적 테스트 실패 발생
 
         #사이트가 입력한 목록을 저장하고 있는가? -- 특정 URL로 접속하면 작업목록이 그대로 있다.
 
