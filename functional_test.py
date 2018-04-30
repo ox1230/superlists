@@ -1,6 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-import unittest  
+import unittest
+import time
+
 
 class NewVisitorTest(unittest.TestCase):
     def setUp(self):
@@ -34,6 +36,7 @@ class NewVisitorTest(unittest.TestCase):
         # 엔터키를 치면 페이지 갱신, 작업 목록에 "1: 공작깃털 사기"아이템이 추가 
         inputBox.send_keys(Keys.ENTER)
 
+        
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
         self.assertTrue(
