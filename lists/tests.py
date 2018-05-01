@@ -21,7 +21,7 @@ class HomePageTest(TestCase):
         self.assertEqual(self.remove_csrf_tag(response.content.decode()), self.remove_csrf_tag(expected_html))
     
     def test_home_page_can_save_a_POST_request(self):
-        #POST 테스트가 너무 길어지고 있다!!
+        
         request = HttpRequest()
         request.method = 'POST'
         request.POST['item_text'] = '신규 작업 아이템'
@@ -31,16 +31,17 @@ class HomePageTest(TestCase):
         self.assertEqual(Item.objects.count(),1)
         new_item = Item.objects.first()
         self.assertEqual(new_item.text, '신규 작업 아이템')
+    
+    def test_home_page_redirects_after_POST(self):        
+        """더이상 content가 템플릿에 의해 렌더링되지 않고 응답이 HTTP 리디렉션을 한다"""
+        request = HttpRequest()
+        request.method = 'POST'
+        request.POST['item_text'] = '신규 작업 아이템'
 
-
-        self.assertIn('신규 작업 아이템', response.content.decode())
+        response = home_page(request)
         
-        expected_html = render_to_string(
-            'home.html',
-            {'new_item_text': '신규 작업 아이템'},
-            request = request)
-
-        self.assertEqual(self.remove_csrf_tag(response.content.decode()), self.remove_csrf_tag(expected_html))
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['location'], '/')
 
     def test_home_page_only_saves_items_when_necessary(self):
         request = HttpRequest()
