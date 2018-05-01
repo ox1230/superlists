@@ -1,9 +1,9 @@
-from lists.views import home_page
-from lists.models import Item
 from django.test import TestCase
 from django.urls import resolve
 from django.http import HttpRequest
 from django.template.loader import render_to_string
+from lists.views import home_page
+from lists.models import Item
 import re
 
 class HomePageTest(TestCase):
@@ -21,11 +21,17 @@ class HomePageTest(TestCase):
         self.assertEqual(self.remove_csrf_tag(response.content.decode()), self.remove_csrf_tag(expected_html))
     
     def test_home_page_can_save_a_POST_request(self):
+        #POST 테스트가 너무 길어지고 있다!!
         request = HttpRequest()
         request.method = 'POST'
         request.POST['item_text'] = '신규 작업 아이템'
 
         response = home_page(request)
+
+        self.assertEqual(Item.objects.count(),1)
+        new_item = Item.objects.first()
+        self.assertEqual(new_item.text, '신규 작업 아이템')
+
 
         self.assertIn('신규 작업 아이템', response.content.decode())
         
@@ -35,6 +41,14 @@ class HomePageTest(TestCase):
             request = request)
 
         self.assertEqual(self.remove_csrf_tag(response.content.decode()), self.remove_csrf_tag(expected_html))
+
+    def test_home_page_only_saves_items_when_necessary(self):
+        request = HttpRequest()
+
+        home_page(request)
+
+        self.assertEqual(Item.objects.count(),0)
+
 
     def remove_csrf_tag(self,text):
         """Remove csrf tag from TEXT"""
