@@ -49,8 +49,7 @@ class HomePageTest(TestCase):
         home_page(request)
 
         self.assertEqual(Item.objects.count(),0)
-
-
+        
     def remove_csrf_tag(self,text):
         """Remove csrf tag from TEXT"""
         return re.sub(r'<[^>]*csrfmiddlewaretoken[^>]*>', '', text)
