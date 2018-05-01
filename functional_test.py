@@ -37,11 +37,8 @@ class NewVisitorTest(unittest.TestCase):
         # 엔터키를 치면 페이지 갱신, 작업 목록에 "1: 공작깃털 사기"아이템이 추가 
         inputBox.send_keys(Keys.ENTER)
 
-        time.sleep(2)        
-        table = self.browser.find_element_by_id('id_list_table')
-        rows = table.find_elements_by_tag_name('tr')
-        self.assertIn( '1: 공작깃털 사기',[row.text for row in rows])
-        
+        self.check_for_row_in_list_table('1: 공작깃털 사기')
+    
 
         # 추가 아이템을 입력할 수 있는 여분의 텍스트 상자 존재
         inputBox = self.browser.find_element_by_id('id_new_item')
@@ -51,14 +48,18 @@ class NewVisitorTest(unittest.TestCase):
         inputBox.send_keys(Keys.ENTER)
 
         # 페이지 갱신, 두개의 아이템이 목록에 표시
-        time.sleep(2)        
-        table = self.browser.find_element_by_id('id_list_table')
-        rows = table.find_elements_by_tag_name('tr')
-        self.assertIn( '1: 공작깃털 사기',[row.text for row in rows])
-        self.assertIn( '2: 공작깃털을 이용해서 그물 만들기',[row.text for row in rows])
-        
+        self.check_for_row_in_list_table("2: 공작깃털을 이용해서 그물 만들기")
+        self.check_for_row_in_list_table('1: 공작깃털 사기')
+    
         self.fail('Finish the test!')  # 강제적 테스트 실패 발생
         #사이트가 입력한 목록을 저장하고 있는가? -- 특정 URL로 접속하면 작업목록이 그대로 있다.
+
+    def check_for_row_in_list_table(self, row_text):
+        time.sleep(1)        
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn(row_text, [row.text for row in rows])
+
 
 if __name__ == '__main__':
     unittest.main(warnings= 'ignore')

@@ -39,3 +39,4 @@ class HomePageTest(TestCase):
         """Remove csrf tag from TEXT"""
         return re.sub(r'<[^>]*csrfmiddlewaretoken[^>]*>', '', text)
 
+    
