@@ -77,7 +77,7 @@ class NewVisitorTest(LiveServerTestCase):
 
         page_text = self.browser.find_element_by_tag_name('body').text
         self.assertNotIn('공작깃털 사기', page_text)
-        self.assertIn(page_text)
+        self.assertIn('우유 사기', page_text)
 
 
     def check_for_row_in_list_table(self, row_text):
