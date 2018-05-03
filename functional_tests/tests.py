@@ -35,7 +35,7 @@ class NewVisitorTest(LiveServerTestCase):
         inputBox.send_keys('공작깃털 사기')
         # 엔터키를 치면 페이지 갱신, 작업 목록에 "1: 공작깃털 사기"아이템이 추가 
         inputBox.send_keys(Keys.ENTER)
-        time.sleep(1)
+        time.sleep(2)
         edith_list_url = self.browser.current_url
     
         self.assertRegex(edith_list_url, '/lists/.+')
@@ -69,7 +69,7 @@ class NewVisitorTest(LiveServerTestCase):
         inputBox.send_keys(Keys.ENTER)
 
         #프란시스가 전용 URL을 취득한다
-        time.sleep(1)
+        time.sleep(2)
         francis_list_url = self.browser.current_url
 
         self.assertRegex(francis_list_url, '/lists/.+')

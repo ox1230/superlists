@@ -4,7 +4,7 @@
     </head>
     <body>
         <h1>Your To-Do list</h1>
-        <form method = "POST" action = '/'> 
+        <form method = "POST" action = '/lists/new'> 
             {% comment %} view_list함수가 아닌 메인 페이지로 이동하게 함  {% endcomment %}
             <input id = "id_new_item" name = "item_text" placeholder="작업아이템 입력"/>
             {% csrf_token %}

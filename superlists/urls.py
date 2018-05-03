@@ -18,7 +18,8 @@ from django.urls import path
 from lists import views
 
 urlpatterns = [
-    path(r'lists/only_list/',  views.view_list, name = 'list'),
+    path(r'lists/only_list/',  views.view_list, name = 'view_list'),
+    path(r'lists/new', views.new_list, name = 'new_list'),
     path(r'', views.home_page, name = 'home'),
     path(r'admin/', admin.site.urls),
 ]

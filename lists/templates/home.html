@@ -4,7 +4,7 @@
     </head>
     <body>
         <h1>작업 목록 시작</h1>
-        <form method = "POST">
+        <form method = "POST" action = '/lists/new'>
             <input id = "id_new_item" name = "item_text" placeholder="작업아이템 입력"/>
             {% csrf_token %}
         </form>
