@@ -21,7 +21,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.browser.get(self.live_server_url)
 
         # 타이틀과 헤더가 'To-Do'를 표시
-        self.assertIn('To-Do' ,self.browser.title)  # 다양한 assert
+        self.assertIn('To-Do' ,self.browser.title) 
 
 
         #작업 추가
@@ -35,12 +35,12 @@ class NewVisitorTest(LiveServerTestCase):
         inputBox.send_keys('공작깃털 사기')
         # 엔터키를 치면 페이지 갱신, 작업 목록에 "1: 공작깃털 사기"아이템이 추가 
         inputBox.send_keys(Keys.ENTER)
+        time.sleep(1)
         edith_list_url = self.browser.current_url
-
+    
         self.assertRegex(edith_list_url, '/lists/.+')
         #assertRegex: 지정 정규표현식과 문자열이 일치하는지 확인
         self.check_for_row_in_list_table('1: 공작깃털 사기')
-    
 
         # 추가 아이템을 입력할 수 있는 여분의 텍스트 상자 존재
         inputBox = self.browser.find_element_by_id('id_new_item')
@@ -69,7 +69,9 @@ class NewVisitorTest(LiveServerTestCase):
         inputBox.send_keys(Keys.ENTER)
 
         #프란시스가 전용 URL을 취득한다
+        time.sleep(1)
         francis_list_url = self.browser.current_url
+
         self.assertRegex(francis_list_url, '/lists/.+')
         self.assertNotEqual(francis_list_url, edith_list_url)
 
