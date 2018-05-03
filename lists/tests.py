@@ -74,13 +74,15 @@ class ItemModelTest(TestCase):
 
 class ListViewTest(TestCase):
     def test_uses_list_template(self):
-        response = self.client.get('lists/only_list/')
+        response = self.client.get('/lists/only_list/')   #/를 붙이자 !! ㅜㅜ
+        print(repr(response))
         self.assertTemplateUsed(response, 'list.html')
 
     def test_displays_all_items(self):
         Item.objects.create(text = 'item1')
         Item.objects.create(text = 'item2')
         
-        response = self.client.get('lists/only_list/')
+        response = self.client.get('/lists/only_list/')
+        print(repr(response))
         self.assertContains(response,'item1')
         self.assertContains(response, 'item2')
