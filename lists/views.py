@@ -4,9 +4,10 @@ from lists.models import Item,List
 
 def home_page(request:HttpRequest):
     return render(request, 'home.html')
-def view_list(request:HttpRequest):
-        
-    items = Item.objects.all()
+def view_list(request:HttpRequest, list_id):
+    list_ = List.objects.get(id = list_id)
+    items = Item.objects.filter(list = list_)
+    
     return render(request, "list.html",{
         'items' : items,
     })
@@ -14,5 +15,5 @@ def view_list(request:HttpRequest):
 def new_list(request:HttpRequest):
     list_ = List.objects.create()
     Item.objects.create(text = request.POST['item_text'], list = list_)
-    return redirect('only_list/')
+    return redirect('{}/'.format(list_.id))
 

@@ -56,19 +56,26 @@ class ListAndItemModelTest(TestCase):
 
 class ListViewTest(TestCase):
     def test_uses_list_template(self):
-        response = self.client.get('/lists/only_list/')   #/를 붙이자 !! ㅜㅜ
+        list_ = List.objects.create()
+        response = self.client.get('/lists/{}/'.format(list_.id))   #/를 붙이자 !! ㅜㅜ
 
         self.assertTemplateUsed(response, 'list.html')
 
-    def test_displays_all_items(self):
-        list_ = List.objects.create()
-        Item.objects.create(text = 'item1', list = list_)
-        Item.objects.create(text = 'item2', list = list_)
-        
-        response = self.client.get('/lists/only_list/')
+    def test_displays_only_items_for_that_list(self):
+        correct_list = List.objects.create()
+        Item.objects.create(text = 'item1', list = correct_list)
+        Item.objects.create(text = 'item2', list = correct_list)
+
+        other_list = List.objects.create()
+        Item.objects.create(text = 'other item1', list = other_list)
+        Item.objects.create(text = 'other item2', list = other_list)
+
+        response = self.client.get('/lists/{}/'.format(correct_list.id))
 
         self.assertContains(response,'item1')
         self.assertContains(response, 'item2')
+        self.assertNotContains(response, 'other item1')
+        self.assertNotContains(response, 'other item2')
     
     def test_saving_a_POST_request(self):
         
@@ -87,7 +94,6 @@ class ListViewTest(TestCase):
             '/lists/new',
             data = {'item_text': '신규 작업 아이템'}
         )
-
-        self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, '/lists/only_list/')
+        new_list = List.objects.first()
+        self.assertRedirects(response, '/lists/{}/'.format(new_list.id))
     
