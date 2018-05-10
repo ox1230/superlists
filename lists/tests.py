@@ -88,7 +88,7 @@ class ListViewTest(TestCase):
         new_item = Item.objects.first()
         self.assertEqual(new_item.text, '신규 작업 아이템')
     
-    def test__redirects_after_POST(self):        
+    def test_redirects_after_POST(self):        
       
         response = self.client.post(
             '/lists/new',
@@ -108,7 +108,6 @@ class NewItemTest(TestCase):
     def test_can_save_a_POST_request_to_an_existing_list(self):
         other_list = List.objects.create()
         correct_list = List.objects.create()
-
 
         self.client.post(
             '/lists/{}/add_item'.format(correct_list.id),
