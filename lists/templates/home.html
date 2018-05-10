@@ -1,15 +1,17 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>To-Do lists</title>
-    </head>
-    <body>
-        <h1>작업 목록 시작</h1>
-        <form method = "POST" action = '/lists/new'>
-            <p style = 'text-align: center'>
-                <input id = "id_new_item" name = "item_text" placeholder="작업아이템 입력"/>
-                {% csrf_token %}
-            </p>
-        </form>
-    </body>
-</html>
+{% extends "base.html" %}
+
+{% block header_text  %}
+작업목록시작
+{% endblock  %}
+
+{% block form_action %}
+/lists/new
+{% endblock form_action %}
+
+{% block table %}
+<table>
+    {% for item in list.item_set.all %}
+        <tr><td>{{ forloop.counter}}: {{ item.text }}</td></tr>
+    {% endfor %}
+</table>
+{% endblock table %}
