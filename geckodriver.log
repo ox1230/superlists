@@ -2760,3 +2760,25 @@ Unable to read VR Path Registry from C:\Users\ox112\AppData\Local\openvr\openvrp
 
 
 KLIB_SelfTest return : KLR_OK
+1526049485839	geckodriver	INFO	geckodriver 0.20.1
+1526049485981	geckodriver	INFO	Listening on 127.0.0.1:12872
+1526049488863	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\ox112\\AppData\\Local\\Temp\\rust_mozprofile.2NaCKK9pbqOg"
+Unable to read VR Path Registry from C:\Users\ox112\AppData\Local\openvr\openvrpaths.vrpath
+1526049490416	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\ox112\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\ox112\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\ox112\AppData\Local\openvr\openvrpaths.vrpath
+Unable to read VR Path Registry from C:\Users\ox112\AppData\Local\openvr\openvrpaths.vrpath
+1526049492236	Marionette	INFO	Listening on port 12880
+1526049492504	Marionette	WARN	TLS certificate errors will be ignored for this session
+[Child 16084, Chrome_ChildThr[ePaadre]nt 9116,  Gecko_IOThWreAaRNING: pipd] WAeR erNING: pipe errroor: r: 1109: file z:/0build9/b: file z:/build/buuiilld/ds/src/ipc/chromium/src/chrome/common/irpcc/ipc/chromium/_schannel_win.cc, line 346rc/chrome/co
+mmon/ipc_channel_win.cc, line 346
+[Child 16468, Chrome_ChildThre[ad] WARNING: pPaipe errreor: 109: file z:/build/build/src/ipc/chrominutm/src/chrome/common/ipc_channel_win.cc, li 9116,n eGecko_IOT hread]3 WARNING: pipe error: 109: file z:/bui4l6d
+/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 12388, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+
+KLIB_SelfTest return : KLR_OK
