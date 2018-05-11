@@ -9,7 +9,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
     def setUp(self):
         """테스트 시작 전에 수행"""
         self.browser = webdriver.Firefox()
-        self.browser.implicitly_wait(5)   # 암묵적 대기 -- 5초
+        self.browser.implicitly_wait(3)   # 암묵적 대기 -- 3초
     
     def tearDown(self):
         """테스트 후에 시행-- 테스트에 에러가 발생해도 실행된다"""
@@ -85,12 +85,12 @@ class NewVisitorTest(StaticLiveServerTestCase):
         
         #에디스는 메인페이지를 방문한다
         self.browser.get(self.live_server_url)
-        self.browser.set_window_size(1024,768)
+        self.browser.set_window_size(1024,768)   #윈도우 사이즈는 중간
 
         #입력상자가 가운데에 위치한 것을 본다
         inputbox = self.browser.find_element_by_id('id_new_item')
         self.assertAlmostEqual(
-            inputbox.location['x' ] + inputbox.size['width']/2,
+            inputbox.location['x'] + inputbox.size['width']/2,
             512,
             delta = 10
         )
