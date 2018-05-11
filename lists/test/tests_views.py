@@ -6,7 +6,7 @@ from lists.views import home_page
 from lists.models import Item,List
 import re
 
-class HomePageTest(TestCase):
+class NewListTest(TestCase):
     def test_root_url_resolves_to_home_page_view(self):
         found = resolve('/')
         # resolve: url을 해석해 일치하는 뷰 함수를 찾는다.   여기서는 /가 호출될때 resolve를 실행해서 home_page함수를 호출한다.
@@ -20,8 +20,16 @@ class HomePageTest(TestCase):
         
         self.assertEqual(self.remove_csrf_tag(response.content.decode()), self.remove_csrf_tag(expected_html))
     
+    def test_validation_errors_are_sent_back_to_home_page_template(self):
+        response = self.client.post('/lists/new', data = {'item_text': ''})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'home.html')
+        expected_error = "빈 아이템을 등록할 수 없습니다"
+        self.assertContains(response , expected_error)
 
-    def remove_csrf_tag(self,text):
+
+    @staticmethod
+    def remove_csrf_tag(text):
         """Remove csrf tag from TEXT"""
         return re.sub(r'<[^>]*csrfmiddlewaretoken[^>]*>', '', text)
 
