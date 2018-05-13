@@ -44,7 +44,6 @@ class ItemValidationTest(FunctionalTest):
         self.check_for_row_in_list_table('1: 우유 사기')
         self.check_for_row_in_list_table('2: 차 만들기')
 
-        self.fail('write me!')
 
 
 

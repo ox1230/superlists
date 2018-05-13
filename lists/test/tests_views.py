@@ -43,7 +43,7 @@ class ListViewTest(TestCase):
     def test_uses_list_template(self):
         list_ = List.objects.create()
         response = self.client.get('/lists/{}/'.format(list_.id))   #/를 붙이자 !! ㅜㅜ
-
+        print(repr(response))
         self.assertTemplateUsed(response, 'list.html')
 
     def test_displays_only_items_for_that_list(self):
@@ -113,3 +113,15 @@ class ListViewTest(TestCase):
         )
 
         self.assertRedirects(response , '/lists/{}/'.format(correct_list.id))
+
+    def test_validation_errors_end_up_on_lists_page(self):
+        list_ = List.objects.create()
+        response = self.client.post(
+            '/lists/{}/'.format(list_.id),
+            data = {'item_text':''}
+        )
+
+        self. assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'list.html')
+        expected_error = "빈 아이템을 등록할 수 없습니다"
+        self.assertContains(response, expected_error)
