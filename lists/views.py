@@ -16,7 +16,7 @@ def new_list(request:HttpRequest):
         list_.delete()
         error = "빈 아이템을 등록할 수 없습니다"
         return render(request, 'home.html', {'error':error})
-    return redirect('{}/'.format(list_.id))
+    return redirect(list_)
 
 def view_list(request:HttpRequest, list_id):
     list_ = List.objects.get(id = list_id)
@@ -27,7 +27,7 @@ def view_list(request:HttpRequest, list_id):
             item = Item.objects.create(text = request.POST['item_text'], list = list_)
             item.full_clean()
             item.save()
-            return redirect('/lists/{}/'.format(list_.id))
+            return redirect(list_)
         
         except ValidationError:
             item.delete()
