@@ -10,4 +10,5 @@ POST를 이용해서 새로운 아이템을 기존 목록에 추가하는 URL을
 urls.py 에 있는 중복 코드를 리팩터링 한다 -- clear
 
 views.py에서 하드코딩된 url제거
+list.html과 home.html의 하드코딩된 url제거
 

@@ -19,8 +19,6 @@ from lists import views
 import re
 
 urlpatterns = [
-    path('<list_id>/',  views.view_list, name = 'view_list'),     #캡처그룹 추가 
-    path('<list_id>/add_item',  views.add_item, name = 'add_item'),  
+    path('<list_id>/',  views.view_list, name = 'view_list'),    
     path('new', views.new_list, name = 'new_list'),
-
 ]
