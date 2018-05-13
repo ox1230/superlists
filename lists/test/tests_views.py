@@ -43,7 +43,6 @@ class ListViewTest(TestCase):
     def test_uses_list_template(self):
         list_ = List.objects.create()
         response = self.client.get('/lists/{}/'.format(list_.id))   #/를 붙이자 !! ㅜㅜ
-        print(repr(response))
         self.assertTemplateUsed(response, 'list.html')
 
     def test_displays_only_items_for_that_list(self):
