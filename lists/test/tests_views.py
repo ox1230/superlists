@@ -4,21 +4,25 @@ from django.http import HttpRequest
 from django.template.loader import render_to_string
 from lists.views import home_page
 from lists.models import Item,List
+from lists.forms import ItemForm
 import re
 
-class NewListTest(TestCase):
-    def test_root_url_resolves_to_home_page_view(self):
-        found = resolve('/')
-        # resolve: url을 해석해 일치하는 뷰 함수를 찾는다.   여기서는 /가 호출될때 resolve를 실행해서 home_page함수를 호출한다.
-        self.assertEqual(found.func, home_page)
+class HomePageTest(TestCase):
+  
+    def test_home_page_renders_home_template(self):
+        response = self.client.get('/')
+        self.assertTemplateUsed(response, 'home.html')
     
-    def test_home_page_returns_correct_html(self):
-        request = HttpRequest()      # 사용자가 보낸 요청 확인
-        response = home_page(request)   # 이것을 뷰 home_page에 전달     리턴값: HttpResponse
-        
-        expected_html = render_to_string('home.html', request = request)
-        
-        self.assertEqual(self.remove_csrf_tag(response.content.decode()), self.remove_csrf_tag(expected_html))
+    def test_home_page_uses_item_form(self):
+        response = self.client.get('/')
+        self.assertIsInstance(response.context['form'], ItemForm)
+
+    @staticmethod
+    def remove_csrf_tag(text):
+        """Remove csrf tag from TEXT"""
+        return re.sub(r'<[^>]*csrfmiddlewaretoken[^>]*>', '', text)
+
+class NewListTest(TestCase):
     
     def test_validation_errors_are_sent_back_to_home_page_template(self):
         response = self.client.post('/lists/new', data = {'item_text': ''})
@@ -34,10 +38,6 @@ class NewListTest(TestCase):
         self.assertEqual(List.objects.count(),0)
         self.assertEqual(Item.objects.count(),0)
 
-    @staticmethod
-    def remove_csrf_tag(text):
-        """Remove csrf tag from TEXT"""
-        return re.sub(r'<[^>]*csrfmiddlewaretoken[^>]*>', '', text)
 
 class ListViewTest(TestCase):
     def test_uses_list_template(self):
