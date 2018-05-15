@@ -8,12 +8,14 @@ class ItemForm(forms.models.ModelForm):
         model = Item
         fields = ('text',)
         widgets = {
-            'text': forms.fields.TextInput(attrs={
+            'text': forms.fields.TextInput(
+                attrs={
+               'required': False,
                 'placeholder':'작업아이템 입력',
-                'class' : 'form-control input-lg',
                 'id' : 'id_text',
-            })
+                })
         }
+
         error_messages = {
             'text' : {'required':EMPTY_LIST_ERROR}
         }
