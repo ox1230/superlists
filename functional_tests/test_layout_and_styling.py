@@ -17,7 +17,7 @@ class LayoutAndStylingTest(FunctionalTest):
         self.browser.set_window_size(1024,768)   #윈도우 사이즈는 중간
 
         #입력상자가 가운데에 위치한 것을 본다
-        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox = self.get_item_input_box()
         self.assertAlmostEqual(
             inputbox.location['x'] + inputbox.size['width']/2,
             512,
@@ -28,7 +28,7 @@ class LayoutAndStylingTest(FunctionalTest):
         inputbox.send_keys('testing')
         inputbox.send_keys(Keys.ENTER)
         
-        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox = self.get_item_input_box()
         self.assertAlmostEqual(
             inputbox.location['x'] + inputbox.size['width']/2,
             512,

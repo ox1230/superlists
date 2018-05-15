@@ -22,7 +22,7 @@ class NewVisitorTest(FunctionalTest):
 
 
         #작업 추가
-        inputBox = self.browser.find_element_by_id('id_new_item')
+        inputBox = self.get_item_input_box()
         self.assertEqual(
             inputBox.get_attribute('placeHolder'), 
             '작업아이템 입력'
@@ -40,7 +40,7 @@ class NewVisitorTest(FunctionalTest):
         self.check_for_row_in_list_table('1: 공작깃털 사기')
 
         # 추가 아이템을 입력할 수 있는 여분의 텍스트 상자 존재
-        inputBox = self.browser.find_element_by_id('id_new_item')
+        inputBox = self.get_item_input_box()
         
         # 다시 '공작 깃털을 이용해 그물 만들기"라고 입력
         inputBox.send_keys('공작깃털을 이용해서 그물 만들기')
@@ -60,7 +60,7 @@ class NewVisitorTest(FunctionalTest):
         self.assertNotIn('그물 만들기', page_text)
 
         #프란시스가 새로운 작업 아이템을 입력한다
-        inputBox = self.browser.find_element_by_id('id_new_item')
+        inputBox = self.get_item_input_box()
         
         inputBox.send_keys('우유 사기')
         inputBox.send_keys(Keys.ENTER)

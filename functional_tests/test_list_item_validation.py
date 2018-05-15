@@ -16,7 +16,7 @@ class ItemValidationTest(FunctionalTest):
 
         # 입력상자가 비어있는 상태에서 엔터키를 누른다
         self.browser.get(self.server_url)
-        self.browser.find_element_by_id('id_new_item').send_keys(Keys.ENTER)
+        self.get_item_input_box().send_keys(Keys.ENTER)
 
         # 페이지가 새로고침되고, 빈아이템을 등록할 수 없다는 에러메세지가 표시된다
         error = self.browser.find_element_by_css_selector('.has-error')
@@ -24,13 +24,13 @@ class ItemValidationTest(FunctionalTest):
        
         # 다른아이템을 입력하고 정상처리
 
-        self.browser.find_element_by_id('id_new_item').send_keys('우유 사기')
-        self.browser.find_element_by_id('id_new_item').send_keys(Keys.ENTER)
+        self.get_item_input_box().send_keys('우유 사기')
+        self.get_item_input_box().send_keys(Keys.ENTER)
 
         self.check_for_row_in_list_table('1: 우유 사기')
 
         # 다시 빈아이템 입력
-        self.browser.find_element_by_id('id_new_item').send_keys(Keys.ENTER)
+        self.get_item_input_box().send_keys(Keys.ENTER)
 
         # 에러메세지 표시
         self.check_for_row_in_list_table('1: 우유 사기')
@@ -38,8 +38,8 @@ class ItemValidationTest(FunctionalTest):
         self.assertEqual(error.text, '빈 아이템을 등록할 수 없습니다')
 
         #아이템 입력시 다시 정상 동작
-        self.browser.find_element_by_id('id_new_item').send_keys('차 만들기')
-        self.browser.find_element_by_id('id_new_item').send_keys(Keys.ENTER)
+        self.get_item_input_box().send_keys('차 만들기')
+        self.get_item_input_box().send_keys(Keys.ENTER)
 
         self.check_for_row_in_list_table('1: 우유 사기')
         self.check_for_row_in_list_table('2: 차 만들기')

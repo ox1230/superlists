@@ -11,6 +11,7 @@ class ItemForm(forms.models.ModelForm):
             'text': forms.fields.TextInput(attrs={
                 'placeholder':'작업아이템 입력',
                 'class' : 'form-control input-lg',
+                'id' : 'id_text',
             })
         }
         error_messages = {
