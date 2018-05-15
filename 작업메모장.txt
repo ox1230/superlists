@@ -11,4 +11,4 @@ urls.py 에 있는 중복 코드를 리팩터링 한다 -- clear
 
 views.py에서 하드코딩된 url제거 -- clear
 list.html과 home.html의 하드코딩된 url제거 -- clear
-view에 있는 중복된 검증 로직 제거
+view에 있는 중복된 검증 로직 제거  -- clear
